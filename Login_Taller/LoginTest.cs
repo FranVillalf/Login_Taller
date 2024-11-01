@@ -20,5 +20,19 @@ namespace Login_Taller
             driver.Close();
             driver.Quit();
         }
+        [Test]
+        public void IngresoIncorrecto()
+        {
+            IWebDriver driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
+
+            driver.FindElement(By.Id("username")).SendKeys("tomsmith1");
+            driver.FindElement(By.Id("password")).SendKeys("SuperSecretPassword!");
+            driver.FindElement(By.CssSelector("#login > button > i")).Click();
+
+            driver.Close();
+            driver.Quit();
+        }
     }
 }
