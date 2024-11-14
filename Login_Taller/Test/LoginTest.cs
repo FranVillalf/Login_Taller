@@ -1,3 +1,4 @@
+using Login_Taller.Genericos;
 using Login_Taller.PageObject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -9,6 +10,7 @@ namespace Login_Taller.Test
     {
         public IWebDriver driver;
         public LoginPage login;
+        public LeerJson json;
         public String baseURL = "https://the-internet.herokuapp.com/login";
         
 
@@ -19,6 +21,7 @@ namespace Login_Taller.Test
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(baseURL);
             login = new LoginPage(driver);
+            json = new LeerJson();
         }
 
         [TearDown]
@@ -39,9 +42,13 @@ namespace Login_Taller.Test
         [TestCase("tomsmith", "pass")]// Escenario usuario incorrecto
         */
 
-        [TestCase("tomsmith", "SuperSecretPassword")]
-        public void IngresoCorrecto(String user, string pass)
+
+        public void IngresoCorrecto()
         {
+            var data = json.Login_data();
+            String user = json.Login_data().username;
+            String pass = json.Login_data().password;
+
             login.IngresarCredenciales(user,pass);
         }
 
